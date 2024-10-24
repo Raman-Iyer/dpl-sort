@@ -47,12 +47,12 @@ const TeamSelectModal = ({
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger className="font-body">
         <Button>Select House</Button>
       </DialogTrigger>
-      <DialogContent className="max-w-5xl w-auto">
+      <DialogContent className="max-w-5xl w-auto font-body">
         <DialogHeader>
-          <DialogTitle>Choose your team</DialogTitle>
+          <DialogTitle className="font-heading">Choose your team</DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-4 gap-4">
           {teams.map((teamItem) => (
@@ -61,7 +61,7 @@ const TeamSelectModal = ({
                 backgroundImage: `url(${teamItem.sigil})`,
                 boxShadow: "inset 0 0 0 2000px rgba(0, 0, 0, 0.5)",
               }}
-              className={`h-[150px] w-[150px] flex justify-center items-center rounded bg-cover font-bold ${
+              className={`h-[150px] w-[150px] flex justify-center items-center rounded bg-cover font-bold font-heading ${
                 team === teamItem.name
                   ? "border-white border-4"
                   : "border-[1px]"

@@ -65,7 +65,6 @@ export const MEMBERS: string[] = [
   "Shrushti Polekar",
   "Pranita Fulsundar",
   "Harshit Shah",
-  "Sherin Saji",
   "Harsh Vador",
   "Dhruv Yadav",
   "Rushikesh Bunge",

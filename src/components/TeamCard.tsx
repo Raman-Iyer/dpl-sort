@@ -41,18 +41,20 @@ const TeamCard = ({
       <div>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
-            <h1 className="text-4xl font-bold">{team.name}</h1>
+            <h1 className="text-4xl font-bold font-heading">{team.name}</h1>
             <img src={team.banner} className="h-20" />
           </CardTitle>
         </CardHeader>
         <CardContent>
           <h3 className="text-2xl mb-2">
-            <span className="font-bold">Captain:</span> {team.captain}
+            <span className="font-bold font font-heading">Captain:</span>{" "}
+            {team.captain}
           </h3>
           <h4 className="text-xl mb-1">
-            <span className="font-bold">Flag Bearer:</span> {team.viceCaptain}
+            <span className="font-bold font-heading">Flag Bearer:</span>{" "}
+            {team.viceCaptain}
           </h4>
-          <p className="font-lg font-bold mb-2">Team Members</p>
+          <p className="font-lg font-bold mb-2 font-heading">Team Members</p>
           <div className="grid grid-cols-3 gap-4">
             {team.team.map((player, index) => (
               <div

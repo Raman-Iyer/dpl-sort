@@ -145,7 +145,7 @@ const Team = () => {
   };
 
   return (
-    <div className="h-full w-full flex">
+    <div className="h-full w-full flex font-body">
       <div className="grid grid-cols-2 gap-2 p-2 h-full w-full">
         {teams.map((team, index) => (
           <TeamCard
@@ -167,7 +167,7 @@ const Team = () => {
       </div>
       <Card className="min-w-[300px] m-2">
         <CardHeader>
-          <CardTitle className="text-2xl">Player List</CardTitle>
+          <CardTitle className="text-2xl font-heading">Player List</CardTitle>
           <CardContent className="overflow-y-auto h-[87vh]">
             {getMembersList().length === 0 ? (
               <div className="w-full h-full flex justify-center items-center">

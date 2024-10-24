@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <div
-      className="flex w-full h-full gap-10 flex-col items-center justify-center"
+      className="flex w-full h-full gap-10 flex-col items-center justify-center font-body"
       style={
         isThemeRevealed
           ? {
@@ -35,7 +35,7 @@ const Home = () => {
           : {}
       }
     >
-      <h1 className="text-5xl font-bold">
+      <h1 className="text-5xl font-bold font-heading">
         DEUEX PREMIERE LEAGUE <span className="text-yellow-500">2024-25</span>
       </h1>
       <p className="text-yellow-500 text-3xl">Welcome to DPL V3!</p>

@@ -27,12 +27,14 @@ const ViceCaptainSelectModal = ({
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger className="font-body">
         <Button>Select Flag Bearer</Button>
       </DialogTrigger>
-      <DialogContent className="max-w-5xl w-auto">
+      <DialogContent className="max-w-5xl w-auto font-body">
         <DialogHeader>
-          <DialogTitle>Choose your flag bearer</DialogTitle>
+          <DialogTitle className="font-heading">
+            Choose your flag bearer
+          </DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-3 gap-4">
           {membersList.map((member) => (
