@@ -24,10 +24,54 @@ const TeamCard = ({
   captainList,
   membersList,
 }: TeamCardProps) => {
+  const isTeamConditionMatched = () => {
+    const teamConditions = {
+      needRemote: false,
+      needOffline: false,
+    };
+
+    if (
+      team.captain.isRemote ||
+      team.viceCaptain.isRemote ||
+      team.team.filter((player) => player.isRemote).length > 0
+    ) {
+      teamConditions.needRemote = false;
+    } else {
+      teamConditions.needRemote = true;
+    }
+
+    if (
+      !team.captain.isRemote ||
+      !team.viceCaptain.isRemote ||
+      team.team.filter((player) => !player.isRemote).length > 0
+    ) {
+      teamConditions.needOffline = false;
+    } else {
+      teamConditions.needOffline = true;
+    }
+
+    if (teamConditions.needRemote || teamConditions.needOffline) {
+      return teamConditions;
+    }
+
+    return null;
+  };
+
   const handleButtonClick = () => {
     if (captainsPicked) {
+      const teamConditions = isTeamConditionMatched();
+
+      let updatedMemberList = membersList;
+      if (teamConditions) {
+        if (teamConditions.needRemote) {
+          updatedMemberList = membersList.filter((member) => member.isRemote);
+        }
+        if (teamConditions.needOffline) {
+          updatedMemberList = membersList.filter((member) => !member.isRemote);
+        }
+      }
       const selectedPlayer =
-        membersList[Math.floor(Math.random() * membersList.length)];
+        updatedMemberList[Math.floor(Math.random() * updatedMemberList.length)];
       handleSelectRandomPlayer(teamIndex, selectedPlayer);
     } else {
       const selectedCaptain =
@@ -48,11 +92,11 @@ const TeamCard = ({
         <CardContent>
           <h3 className="text-2xl mb-2">
             <span className="font-bold font font-heading">Captain:</span>{" "}
-            {team.captain}
+            {team.captain.name}
           </h3>
           <h4 className="text-xl mb-1">
             <span className="font-bold font-heading">Flag Bearer:</span>{" "}
-            {team.viceCaptain}
+            {team.viceCaptain.name}
           </h4>
           <p className="font-lg font-bold mb-2 font-heading">Team Members</p>
           <div className="grid grid-cols-3 gap-4">
@@ -61,7 +105,7 @@ const TeamCard = ({
                 key={index}
                 className="text-center w-full py-1 px-2 rounded bg-gray-500"
               >
-                {player}
+                {player.name}
               </div>
             ))}
           </div>

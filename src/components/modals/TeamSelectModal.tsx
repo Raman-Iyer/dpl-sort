@@ -77,7 +77,9 @@ const TeamSelectModal = ({
           ))}
         </div>
         <DialogFooter>
-          <Button onClick={handleTeamChoose}>Select</Button>
+          <Button disabled={team === ""} onClick={handleTeamChoose}>
+            Select
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

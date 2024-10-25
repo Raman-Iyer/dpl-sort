@@ -15,13 +15,19 @@ const ViceCaptainSelectModal = ({
   handleSelectViceCaptain,
   membersList,
 }: ViceCaptainSelectModalProps) => {
-  const [viceCaptain, setViceCaptain] = useState<string>("");
+  const [viceCaptain, setViceCaptain] = useState<{
+    name: string;
+    isRemote: boolean;
+  }>({ name: "", isRemote: false });
 
   const handleViceCaptainChoose = () => {
     handleSelectViceCaptain(teamIndex, viceCaptain);
   };
 
-  const handleViceCaptainChange = (viceCaptain: string) => {
+  const handleViceCaptainChange = (viceCaptain: {
+    name: string;
+    isRemote: boolean;
+  }) => {
     setViceCaptain(viceCaptain);
   };
 
@@ -44,12 +50,17 @@ const ViceCaptainSelectModal = ({
               }`}
               onClick={() => handleViceCaptainChange(member)}
             >
-              {member}
+              {member.name}
             </div>
           ))}
         </div>
         <DialogFooter>
-          <Button onClick={handleViceCaptainChoose}>Select</Button>
+          <Button
+            disabled={viceCaptain.name === ""}
+            onClick={handleViceCaptainChoose}
+          >
+            Select
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

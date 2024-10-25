@@ -5,6 +5,9 @@ export interface TeamSelectModalProps {
 
 export interface ViceCaptainSelectModalProps {
   teamIndex: number;
-  handleSelectViceCaptain: (teamIndex: number, viceCaptain: string) => void;
-  membersList: string[];
+  handleSelectViceCaptain: (
+    teamIndex: number,
+    viceCaptain: { name: string; isRemote: boolean }
+  ) => void;
+  membersList: { name: string; isRemote: boolean }[];
 }

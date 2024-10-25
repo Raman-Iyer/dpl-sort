@@ -1,7 +1,7 @@
 export interface Team {
-  captain: string;
-  viceCaptain: string;
-  team: string[];
+  captain: { name: string; isRemote: boolean };
+  viceCaptain: { name: string; isRemote: boolean };
+  team: { name: string; isRemote: boolean }[];
   name: string;
   banner: string;
   teamIndex: number;
@@ -14,10 +14,19 @@ export interface TeamCardProps {
   viceCaptainsPicking: boolean;
   teamIndex: number;
   currentTeamIndex: number;
-  handleSelectCaptain: (teamIndex: number, captain: string) => void;
-  handleSelectViceCaptain: (teamIndex: number, viceCaptain: string) => void;
-  handleSelectRandomPlayer: (teamIndex: number, player: string) => void;
+  handleSelectCaptain: (
+    teamIndex: number,
+    captain: { name: string; isRemote: boolean }
+  ) => void;
+  handleSelectViceCaptain: (
+    teamIndex: number,
+    viceCaptain: { name: string; isRemote: boolean }
+  ) => void;
+  handleSelectRandomPlayer: (
+    teamIndex: number,
+    player: { name: string; isRemote: boolean }
+  ) => void;
   handleSelectTeam: (teamIndex: number, teamName: string) => void;
-  captainList: string[];
-  membersList: string[];
+  captainList: { name: string; isRemote: boolean }[];
+  membersList: { name: string; isRemote: boolean }[];
 }

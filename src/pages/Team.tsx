@@ -22,26 +22,31 @@ const Team = () => {
   );
   const [captainsPicked, setCaptainsPicked] = useState(false);
   const [teamSelect, setTeamSelect] = useState(
-    teams[currentTeamIndex].captain !== "" &&
+    teams[currentTeamIndex].captain.name !== "" &&
       teams[currentTeamIndex].name.includes("Team")
   );
   const [viceCaptainsPicking, setViceCaptainsPicking] = useState(
-    teams[currentTeamIndex].captain !== "" &&
+    teams[currentTeamIndex].captain.name !== "" &&
       !teams[currentTeamIndex].name.includes("Team")
   );
 
   useEffect(() => {
-    setCaptainsPicked(teams.filter((team) => team.captain === "").length === 0);
+    setCaptainsPicked(
+      teams.filter((team) => team.captain.name === "").length === 0
+    );
   }, [teams]);
 
   useEffect(() => {
     setViceCaptainsPicking(
       captainsPicked &&
-        teams.filter((team) => team.viceCaptain === "").length > 0
+        teams.filter((team) => team.viceCaptain.name === "").length > 0
     );
   }, [teams, captainsPicked]);
 
-  const handleSelectCaptain = (teamIndex: number, captain: string) => {
+  const handleSelectCaptain = (
+    teamIndex: number,
+    captain: { name: string; isRemote: boolean }
+  ) => {
     const updatedTeams = teams.map((team) => {
       if (team.teamIndex === teamIndex) {
         return {
@@ -79,7 +84,10 @@ const Team = () => {
     localStorage.setItem("currentTeamIndex", updatedTeamIndex.toString());
   };
 
-  const handleSelectViceCaptain = (teamIndex: number, viceCaptain: string) => {
+  const handleSelectViceCaptain = (
+    teamIndex: number,
+    viceCaptain: { name: string; isRemote: boolean }
+  ) => {
     const updatedTeams = teams.map((team) => {
       if (team.teamIndex === teamIndex) {
         return {
@@ -98,7 +106,10 @@ const Team = () => {
     localStorage.setItem("currentTeamIndex", updatedTeamIndex.toString());
   };
 
-  const handleSelectRandomPlayer = (teamIndex: number, player: string) => {
+  const handleSelectRandomPlayer = (
+    teamIndex: number,
+    player: { name: string; isRemote: boolean }
+  ) => {
     const updatedTeams = teams.map((team) => {
       if (team.teamIndex === teamIndex) {
         return {
@@ -118,26 +129,34 @@ const Team = () => {
   };
 
   const getCaptainList = () => {
-    return difference(
-      CAPTAINS,
-      teams.filter((team) => team.captain !== "").map((team) => team.captain)
+    const diff = difference(
+      CAPTAINS.map((captain) => captain.name),
+      teams
+        .filter((team) => team.captain.name !== "")
+        .map((team) => team.captain.name)
     );
+
+    return CAPTAINS.filter((captain) => diff.includes(captain.name));
   };
 
   const getMembersList = () => {
     const selectedMembers = teams.reduce((members, team) => {
-      if (team.captain !== "") {
-        members.push(team.captain);
-        if (team.viceCaptain !== "") {
-          members.push(team.viceCaptain);
+      if (team.captain.name !== "") {
+        members.push(team.captain.name);
+        if (team.viceCaptain.name !== "") {
+          members.push(team.viceCaptain.name);
         }
-        members.push(...team.team);
+        members.push(...team.team.map((player) => player.name));
       }
 
       return members;
     }, [] as string[]);
 
-    return difference(MEMBERS, selectedMembers);
+    const diff = difference(
+      MEMBERS.map((member) => member.name),
+      selectedMembers
+    );
+    return MEMBERS.filter((member) => diff.includes(member.name));
   };
 
   const handleViewTeams = () => {
@@ -176,7 +195,7 @@ const Team = () => {
             ) : (
               <div>
                 {getMembersList().map((member, index) => {
-                  return <p key={index}>{member}</p>;
+                  return <p key={index}>{member.name}</p>;
                 })}
               </div>
             )}
